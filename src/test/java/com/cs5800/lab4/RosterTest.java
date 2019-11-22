@@ -36,7 +36,7 @@ public class RosterTest {
 	@Test
 	public void testRosterIterator(){
 
-        AvgDispenser undisputedIterator = undisputed.getDispenser();
+        AvgDispenser undisputedIterator = undisputed.createDispenser();
 
         double avg = undisputedIterator.getNextAvg();
         assertEquals(91.6, avg, 0.1);

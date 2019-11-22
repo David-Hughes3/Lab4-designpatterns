@@ -27,18 +27,19 @@ public class Roster {
         students.add(student);
     }
 
-	public AvgDispenser getDispenser() {
+	public AvgDispenser createDispenser() {
         //anonymous inner class that returns the implementation of the iterator interface
 		return new AvgDispenser(){
-            ArrayList<Student> tempStudents = (ArrayList<Student>)students.clone();
+            int currentIndex = 0;
 
             public double getNextAvg(){
-                double nextAvg = tempStudents.get(0).getAverage();
-                tempStudents.remove(0);
+                Student nextStudent = students.get(currentIndex);
+                double nextAvg = nextStudent.getAverage();
+                currentIndex+=1;
                 return nextAvg;
             }
             public boolean hasNextAvg(){
-                return tempStudents.size() == 0;
+                return currentIndex < students.size();
             }
         };
 	}

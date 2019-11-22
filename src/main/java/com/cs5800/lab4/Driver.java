@@ -54,8 +54,8 @@ public class Driver {
         
         //test the roster traversal
         System.out.println("Undisputed grades:");
-        AvgDispenser undisputedIterator = undisputed.getDispenser();
-        while (!undisputedIterator.hasNextAvg()) {
+        AvgDispenser undisputedIterator = undisputed.createDispenser();
+        while (undisputedIterator.hasNextAvg()) {
             System.out.println("next average "  + df.format(undisputedIterator.getNextAvg()));
         }
 
