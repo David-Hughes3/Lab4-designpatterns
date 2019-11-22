@@ -37,7 +37,7 @@ public class Roster {
                 tempStudents.remove(0);
                 return nextAvg;
             }
-            public boolean done(){
+            public boolean hasNextAvg(){
                 return tempStudents.size() == 0;
             }
         };

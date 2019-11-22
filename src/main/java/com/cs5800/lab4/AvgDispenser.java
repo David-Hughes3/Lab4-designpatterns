@@ -4,5 +4,5 @@ package com.cs5800.lab4;
 public interface AvgDispenser
 {
     public double getNextAvg();
-    public boolean done();
+    public boolean hasNextAvg();
 }
