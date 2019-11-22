@@ -18,6 +18,10 @@ public class Roster {
     public String getCourseName() {
         return courseName;
     }
+
+    public String getCourseNumber() {
+        return courseNumber;
+    }
     
     public void addStudent (Student student) {
         students.add(student);

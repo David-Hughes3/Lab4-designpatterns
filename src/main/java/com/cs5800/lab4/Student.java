@@ -1,7 +1,6 @@
 package com.cs5800.lab4;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Observable;
 
 
@@ -16,7 +15,7 @@ public class Student extends Observable{
 		this.name = name;
         this.assignments = new ArrayList<Double>();
 		this.exams = new ArrayList<Double>();
-		this.averageStrategy = new AssignmentFortyExamSixty();
+		this.averageStrategy = new WeightedAverage(0.40, 0.60);
 	}
 
 
@@ -37,7 +36,7 @@ public class Student extends Observable{
 	}
 
 	public double getAverage() {
-		return averageStrategy.calcAverage();
+		return averageStrategy.calcAverage(this.assignments, this.exams);
 	}
 
 	public char getLetterGrade(){
@@ -59,48 +58,19 @@ public class Student extends Observable{
 		}
 	}
 
-	private interface AverageStrategy {
-		abstract double calcAverage();
-	}
-
 	public void setDropLowestAssign(boolean doDropLowestAssign){
 		setChanged();
 		notifyObservers();
 		if (doDropLowestAssign)
-			this.averageStrategy = new DropLowestAssign();
+			this.averageStrategy = new DropLowestAssignAverage(0.40, 0.60);
 		else
-			this.averageStrategy = new AssignmentFortyExamSixty();
+			this.averageStrategy = new WeightedAverage(0.40, 0.60);
 	}
 
-	private class AssignmentFortyExamSixty implements AverageStrategy {
 
-		public double calcAverage(){
-			double assignAverage = calcSimpleAverage(assignments);
-			double examAverage = calcSimpleAverage(exams);
-			return assignAverage * 0.40 + examAverage * 0.60;
-		}
-	}
 
-	private class DropLowestAssign implements AverageStrategy {
 
-		public double calcAverage(){
-			ArrayList<Double> tempAssignments = (ArrayList) assignments.clone();
-			Collections.sort(tempAssignments);
-			tempAssignments.remove(0);
 
-			double assignAverage = calcSimpleAverage(tempAssignments);
-			double examAverage = calcSimpleAverage(exams);
-			return assignAverage * 0.40 + examAverage * 0.60;
-		}
-	}
 
-	private double calcSimpleAverage(ArrayList<Double> arrList){
-		int n = arrList.size();
-		double sum = 0.0;
-		for(double element : arrList){
-			sum += element;
-		}
-		return sum / n;
-	}
 
 }
